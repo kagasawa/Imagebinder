@@ -2,11 +2,14 @@
 
 ## Introduction
 
-PHPMatsuri2013（http://www.phpmatsuri.net/2013/）の前日の飲み会で出た話題を発端に思いついたネタを、初日いっぱい掛けて実装して、なんとか翌日のLTに間に合わせたものに、readmeなどを追加したアーカイブです。
+PHPMatsuri2013の前日の飲み会で出た話題を発端に思いついたネタを、初日いっぱい掛けて実装して、なんとか翌日のLTに間に合わせたものに、readmeなどを追加したアーカイブです。
+http://www.phpmatsuri.net/2013/
 
-私が普段愛用しているFilebinderプラグイン（https://github.com/fusic/filebinder）はもちろん画像も取り扱えますが、添付した画像の動的なリサイズがありません。
+私が普段愛用しているFilebinderプラグインはもちろん画像も取り扱えますが、添付した画像の動的なリサイズがありません。
+https://github.com/fusic/filebinder
 
-Filebinder開発者のk1LoW氏（https://github.com/k1LoW）に確認したところ、Filebinderが扱うファイルは画像とは限らないのでリサイズの機能を含めることが出来ないとのことなので、Filebinderに機能追加するプラグインとしてImagebinderを開発しました。
+Filebinder開発者のk1LoW氏に確認したところ、Filebinderが扱うファイルは画像とは限らないのでリサイズの機能を含めることが出来ないとのことなので、Filebinderに機能追加するプラグインとしてImagebinderを開発しました。
+https://github.com/k1LoW
 
 名前をImage〜にすることで画像に特化した動きをさせてます。
 Filebinderを既に導入したプロジェクトにも追加導入が可能です。むしろ、プロジェクトにFilebinderがなければ動きません。Imagebinderしか使わない場合でもFilebinderを導入してください。
@@ -19,6 +22,7 @@ Filebinderを既に導入したプロジェクトにも追加導入が可能で�
 ## Installation
 
 まずFilebinderをインストールします。
+
 https://github.com/fusic/filebinder
 
 次にImagebinderをダウンロードして'Imagebinder'のディレクトリ名でapp/plugins以下に配置してください。
@@ -76,12 +80,17 @@ Filebinderでは一度出力したファイルを指定したディレクトリ�
 
 ## Special Thanks
 
-k1LoW
+####k1LoW
+
 https://github.com/k1LoW
+
 https://github.com/fusic/filebinder
 
-saku
+
+####saku
+
 https://github.com/kozo
+
 https://github.com/kozo/imagemake
 
 画像のリサイズにimagemakeコンポーネントを利用させてもらいました
