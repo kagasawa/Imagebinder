@@ -2,13 +2,12 @@
 
 App::uses('FilebinderAppController', 'Filebinder.Controller');
 App::uses('FilebinderController', 'Filebinder.Controller');
+App::uses('ImageMake', 'Imagebinder.Lib');
 
 class ImagebinderController extends FilebinderController {
 
     public $name = 'Imagebinder';
 
-    public $components = array('Imagebinder.Imagemake');
-    
     /**
      * loader
      * file loader
@@ -80,22 +79,41 @@ class ImagebinderController extends FilebinderController {
         // コンテンツタイプが画像の場合
         if ( !empty($fileContentType) && preg_match('#^image/(gif|jpeg|jpg|png)#is', $fileContentType) ) {
 
-            // namedかqueryパラメータでwidthが指定されていたら確保
+            // namedかqueryパラメータでwidth/heightが指定されていたら確保
             $width = false;
             if ( isset($this->request->query['width']) ) {
                 $width = $this->request->query['width'];
             } elseif ( isset($this->request->params['named']['width']) ) {
                 $width = $this->request->params['named']['width'];
             }
-
-            // $widthが整数である場合
-            if (preg_match('/^0$|^-?[1-9][0-9]*$/', $width) ) {
-
+            $height = false;
+            if ( isset($this->request->query['height']) ) {
+                $height = $this->request->query['height'];
+            } elseif ( isset($this->request->params['named']['height']) ) {
+                $height = $this->request->params['named']['height'];
+            }
+            
+            // $width/$heightが整数かどうかのチェック
+            if (!preg_match('/^0$|^-?[1-9][0-9]*$/', $width) ) {
+                $width = false;
+            }
+            if (!preg_match('/^0$|^-?[1-9][0-9]*$/', $height) ) {
+                $height = false;
+            }
+            
+            if ( $width !== false || $height !== false ) {
                 $originalFile = new File($filePath);
 
                 // 画像PATH/幅/画像ファイル名
-                $thumbnail = $originalFile->Folder->pwd().DS.$width.DS.$originalFile->name;
-
+                $p = null;
+                if ( $width !== false ) {
+                    $p .= 'w'.$width;
+                }
+                if ( $height !== false ) {
+                    $p .= 'h'.$height;
+                }
+                $thumbnail = $originalFile->Folder->pwd().DS.$p.DS.$originalFile->name;
+                
                 // thumbnailが存在しなかったら生成
                 if ( !file_exists($thumbnail) ) {
 
@@ -104,7 +122,7 @@ class ImagebinderController extends FilebinderController {
                     $originalFile->copy($thumbnailFile->path);
 
                     // リサイズ
-                    $this->Imagemake->resize($thumbnailFile->path, $width);
+                    ImageMake::resize($thumbnailFile->path, $width, $height);
                     
                     // filesize関数のキャッシュをクリアする
                     clearstatcache();
@@ -138,4 +156,4 @@ class ImagebinderController extends FilebinderController {
         readfile($filePath);
     }
 
-  }
+}

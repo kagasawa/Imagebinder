@@ -74,6 +74,14 @@ class ImageLabelHelper extends LabelHelper {
                 )
             ));
         }
+        // 高さの指定がされていたらqueryパラメータを追加
+        if ( !empty($options['height']) ) {
+            $url = Hash::merge($url, array(
+                '?' => array(
+                    'height' => $options['height']
+                )
+            ));
+        }
 
         return $url;
     }

@@ -14,6 +14,10 @@ https://github.com/k1LoW
 名前をImage〜にすることで画像に特化した動きをさせてます。
 Filebinderを既に導入したプロジェクトにも追加導入が可能です。むしろ、プロジェクトにFilebinderがなければ動きません。Imagebinderしか使わない場合でもFilebinderを導入してください。
 
+[2013.08.24]
+今までは幅の指定しか出来なかったのを高さ基準、または、任意のサイズに設定できるよう機能追加しました。
+
+
 ## Requirements
 
 - PHP >= 5.2.6
@@ -54,9 +58,13 @@ Filebinderだと画像を表示するView側で以下のように書きますが
 これを
 
       <?php echo $this->ImageLabel->image($mergedData['Post']['image'], array('width'=>'300'));?> 
+      <?php echo $this->ImageLabel->image($mergedData['Post']['image'], array('height'=>'300'));?> 
+      <?php echo $this->ImageLabel->image($mergedData['Post']['image'], array('width'=>'100', 'height'=>'100'));?> 
 
 という風にImageLabelヘルパーに置き換えてください。
-第二引数にwidthのパラメータをつけることで指定した幅に最適化した画像を動的に出力します。
+第二引数にwidth/heightのパラメータをつけることで指定した幅に最適化した画像を動的に出力します。
+widthまたはheightのみパラメータに付与された場合は指定値を基準に良い感じに縮小した画像を生成します。
+widthとheightの両方を設定した場合は短い方を基準に縮小しつつセンタリングした画像を生成します（サムネイル生成などに便利）。
 
 ## Cache
 
@@ -74,7 +82,7 @@ Filebinderでは一度出力したファイルを指定したディレクトリ�
 
 であれば、
 
-	/var/www/html/myapp/app/webroot/files/モデル名/ID値/image/WIDTH値
+	/var/www/html/myapp/app/webroot/files/モデル名/ID値/image/WIDTH値HEIGHT値
 
 以下に画像ファイルを出力します。ファイルが存在していれば再生成はしません。
 
